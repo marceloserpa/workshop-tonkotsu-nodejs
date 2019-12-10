@@ -18,5 +18,16 @@ jobs:
         
     - name: running test
       run: npm test 
+
+    - name: Configure AWS Credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: us-east-2
+
+    - name: copy files
+      run: scp -r ec2-user@3.231.223.183:/home/ec2-user/training *
+
       env:
         CI: true
